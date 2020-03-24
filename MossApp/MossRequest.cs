@@ -292,6 +292,14 @@ namespace MossApp
                 string result;
                 using (var socket = new Socket(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
                 {
+
+                    //One hour
+                    int longTimeout = 3600000;
+                    socket.SendTimeout = longTimeout;
+                    socket.ReceiveTimeout = longTimeout;
+
+                    socket.LingerState = new LingerOption(true, 60);
+
                     socket.Connect(ipe);
 
                     this.SendOption(
